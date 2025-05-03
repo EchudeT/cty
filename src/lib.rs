@@ -16,16 +16,18 @@ pub use od::*;
 // PWD = Pointer Width Dependent
 pub use pwd::*;
 
-#[cfg(any(all(target_arch = "aarch64", not(target_os = "macos")),
-          target_arch = "arm",
-          target_arch = "asmjs",
-          target_arch = "wasm32",
-          target_arch = "wasm64",
-          target_arch = "powerpc",
-          target_arch = "powerpc64",
-          target_arch = "s390x",
-          target_arch = "riscv32",
-          target_arch = "riscv64"))]
+#[cfg(any(
+    all(target_arch = "aarch64", not(target_os = "macos")),
+    target_arch = "arm",
+    target_arch = "asmjs",
+    target_arch = "wasm32",
+    target_arch = "wasm64",
+    target_arch = "powerpc",
+    target_arch = "powerpc64",
+    target_arch = "s390x",
+    target_arch = "riscv32",
+    target_arch = "riscv64"
+))]
 mod ad {
     pub type c_char = ::c_uchar;
 
@@ -43,14 +45,17 @@ mod ad {
     pub type c_uint = u32;
 }
 
-#[cfg(any(target_arch = "mips",
-          target_arch = "mips64",
-          target_arch = "sparc64",
-          target_arch = "x86",
-          target_arch = "x86_64",
-          target_arch = "nvptx",
-          target_arch = "nvptx64",
-          target_arch = "xtensa"))]
+#[cfg(any(
+    target_arch = "mips",
+    target_arch = "mips64",
+    target_arch = "sparc64",
+    target_arch = "x86",
+    target_arch = "x86_64",
+    target_arch = "nvptx",
+    target_arch = "nvptx64",
+    target_arch = "xtensa",
+    target_arch = "loongarch64"
+))]
 mod ad {
     pub type c_char = ::c_schar;
 
@@ -67,15 +72,11 @@ mod ad {
 }
 
 // NOTE c_{,u}long definitions come from libc v0.2.3
-#[cfg(not(any(windows,
-              target_os = "redox",
-              target_os = "solaris")))]
+#[cfg(not(any(windows, target_os = "redox", target_os = "solaris")))]
 mod od {
-    #[cfg(any(target_pointer_width = "16",
-              target_pointer_width = "32"))]
+    #[cfg(any(target_pointer_width = "16", target_pointer_width = "32"))]
     pub type c_long = i32;
-    #[cfg(any(target_pointer_width = "16",
-              target_pointer_width = "32"))]
+    #[cfg(any(target_pointer_width = "16", target_pointer_width = "32"))]
     pub type c_ulong = u32;
 
     #[cfg(target_pointer_width = "64")]
@@ -90,8 +91,7 @@ mod od {
     pub type c_ulong = u32;
 }
 
-#[cfg(any(target_os = "redox",
-          target_os = "solaris"))]
+#[cfg(any(target_os = "redox", target_os = "solaris"))]
 mod od {
     pub type c_long = i64;
     pub type c_ulong = u64;
